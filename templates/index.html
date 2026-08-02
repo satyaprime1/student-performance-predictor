@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> Student Performance Predictor </title>
+
+    <link rel = "stylesheet"
+          href = "{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class = "container">
+
+        <div class = "header">
+            <h1>Student Performance Predictor</h1>
+            <p>Predict academic performance using Machine Learning</p>
+        </div>
+
+
+        {% if error %}
+ <div class = "error">
+            {{ error }}
+    </div>
+    {% endif %}
+
+
+  
+        <form method = "POST">
+
+            <div class = "form-group">
+            <label>Study Hours per Day</label>
+
+            <input
+                 type = "number"
+                name = "Hours"
+                step = "0.1"
+                min = "0"
+                max = "24"
+                value = "{{ request.form.get('Hours', '') }}"
+                required
+                >
+            </div>
+
+
+            <div class = "form-group">
+                <label>Attendance Percentage</label>
+
+                <input
+                    type = "number"
+                    name = "Attendance"
+                    step = "0.1"
+                    min = "0"
+                    max = "100"
+                    value = "{{ request.form.get('Attendance', '') }}"
+                    required
+                >
+            </div>
+
+
+            <div class = "form-group">
+                <label>Previous Exam Score</label>
+
+                <input
+                    type = "number"
+                    name = "Score"
+                    step = "0.1"
+                    min = "0"
+                    max = "100"
+                    value = "{{ request.form.get('Score', '') }}"
+                    required
+                >
+            </div>
+
+
+            <div class = "form-group">
+                <label>Sleep Hours per Day</label>
+
+                <input
+                    type = "number"
+                    name = "Sleep"
+                    step = "0.1"
+                    min = "0"
+                    max = "24"
+                    value = "{{ request.form.get('Sleep', '') }}"
+                    required
+                >
+            </div>
+
+
+            <div class = "form-group">
+                <label>Practice Questions Completed</label>
+
+                <input
+                    type = "number"
+                    name = "Questions"
+                    min = "0"
+                    value = "{{ request.form.get('Questions', '') }}"
+                    required
+                >
+            </div>
+
+
+            <button type = "submit">
+                    Predict Performance
+            </button>
+
+        </form>
+
+
+        {% if Predict is defined %}
+
+        <div class="result">
+
+            <h2>Prediction Result</h2>
+
+            <div class = "score">
+                {{ Predict }}%
+            </div>
+
+            <p>Predicted Final Score</p>
+
+
+            <div class="progress-container">
+
+                <div
+                    class="progress-bar"
+                    style="width: {{ Predict }}%;">
+                </div>
+
+            </div>
+
+
+            <div class="performance">
+            {{ performance }}
+        </div>
+
+    </div>
+
+{% endif %}
+
+</div>
+
+</body>
+<footer>
+    <p>By Satya Harsha</p>
+    </footer>
+
+</html>
